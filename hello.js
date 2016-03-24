@@ -12,6 +12,9 @@ var http = require('http'),
     fs = require('fs');
 var express = require('express');
 var app = express();
+var options = { screen_name: 'TotalBiscuit',
+                count: 10 };
+
 
 app.get('/', function(req,res){
     res.send('Hello World!');
@@ -28,13 +31,25 @@ var client = new Twit({
     access_token_secret: 'hZwoGcZpd1oFxDQMZ1kmSZ3zdkC1CGe41RNIxiylWzlZM'
 });
 
+
 client.get('search/tweets', {q: 'TotalBiscuit'}, function(error,tweets,response){ //q: means query
     //console.log(tweets);
-    placeholder = tweets.statuses[0].text;
+    
+    placeholder = tweets.statuses;
     //console.log(tweets.statuses[0].text);
-    console.log(tweets);
+    for(var i = 0; i < placeholder.length; i++){
+        console.log(placeholder[i].text);
+    }
 });
 
+/*
+client.get('statuses/user_timeline',options, function(err,data){
+    for (var i = 0; i < data.length ; i++) {
+        console.log(data[i].text);
+        placeholder = data[i].text + ";\n";
+  }
+});
+*/
 /*
 var http = require('http');
 
