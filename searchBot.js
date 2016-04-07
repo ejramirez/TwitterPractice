@@ -2,6 +2,7 @@ console.log('The bot is starting...');
 
 var Twit = require('twit');
 var fs = require('fs');
+var io = require('socket.io');
 
 var config = require('./config'); //Grabs from config.js
 var T = new Twit(config);
