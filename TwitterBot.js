@@ -21,7 +21,7 @@ function followed(eventMsg){
 
 //---This posts a tweet to twitter---
 
-setInterval(tweetIt, 1000*20); //Tweets every 20 seconds
+//setInterval(tweetIt, 1000*20); //Tweets every 20 seconds
 
 //tweetIt();
 
