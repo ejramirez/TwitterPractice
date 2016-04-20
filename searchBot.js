@@ -3,7 +3,8 @@ console.log('The bot is starting...');
 var Twit = require('twit');
 var fs = require('fs');
 
-var app = require('express')();
+var express = require('express');
+var app = express();
 var http = require('http');
 var server = http.createServer(app);
 var io = require('socket.io').listen(server);
@@ -13,7 +14,9 @@ server.listen(3000);
 var config = require('./config'); //Grabs from config.js
 var T = new Twit(config);
 
-var watchList = ['Doom', 'Quake'];
+var watchList = ['love', 'hate'];
+
+app.use("/", express.static(__dirname + '/pub'));
 
 app.get('/', function(req,res){
     res.sendFile(__dirname + '/index.html');
@@ -31,6 +34,7 @@ io.on('connection', function(socket){
         
         stream.on('tweet',function(tweet){
             // another event listener for this listener that sends data back to the client
+            console.log(tweet.text);
             io.sockets.emit('stream',tweet.text);
         });
         
