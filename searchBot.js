@@ -12,23 +12,8 @@ server.listen(3000);
 
 var config = require('./config'); //Grabs from config.js
 var T = new Twit(config);
-/*
-var params = {
-    q: 'totalbiscuit since:2016-3-1', count: 15
-}
 
-T.get('search/tweets', params, gotData);
-
-function gotData(err,data,response){
-    var tweets = data.statuses;
-    console.log(tweets);
-    //fs.writeFileSync('./result.json',tweets);
-    for(var i = 0; i < tweets.length; i++){
-        console.log(tweets[i].text);
-    }
-}
-*/
-var watchList = ['love', 'hate'];
+var watchList = ['Doom', 'Quake'];
 
 app.get('/', function(req,res){
     res.sendFile(__dirname + '/index.html');
@@ -39,8 +24,20 @@ io.on('connection', function(socket){
     
     var stream = T.stream('statuses/filter', { track: watchList });
     
-    stream.on('tweet',function(tweet){
-        io.sockets.emit('stream',tweet.text);
+    // Event Listener for #submit in index.html
+    socket.on('click',function(){
+        console.log("Stream Start.")
+        stream.start();
+        
+        stream.on('tweet',function(tweet){
+            // another event listener for this listener that sends data back to the client
+            io.sockets.emit('stream',tweet.text);
+        });
+        
     });
     
+    socket.on('stopStream',function(){
+            stream.stop();
+            console.log("Stream Stop.");
+        });
 });

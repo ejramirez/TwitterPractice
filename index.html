@@ -14,9 +14,21 @@
         <h1>New Tweets</h1>
         <ol id="tweets"></ol>
         <a href="#" id="submit">Get Tweets</a>
+        <a href="#" id="stop">Stop</a>
         <script>
+            //grab socket io connection
             var socket = io.connect('http://localhost:3000');
+            
+            // add a socket io event listener to #submit
+            $('#submit').click(function(){
+                socket.emit('click');
+            });
+            
+            $('#stop').click(function(){
+                socket.emit('stopStream');
+            });
            
+            // socket event listener
             socket.on('stream', function(tweet){
                     $('#tweetd').append(tweet+'<br>');
             });
