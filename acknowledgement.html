@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <title>Twitter Practice</title>
+        <script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
+        <script type="text/javascript" src="index.js"></script>
+        <script type="text/javascript" src="hello.js"></script>
+        <script type="text/javascript" src="test.js"></script>
+        <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+    </head>
+    
+    <body>
+        <h1>New Tweets</h1>
+        <ol id="tweets"></ol>
+        <a href="#" id="submit">Get Tweets</a>
+        <script>
+  var socket = io(); // TIP: io() with no args does auto-discovery
+  socket.on('connect', function () { // TIP: you can avoid listening on `connect` and listen on events directly too!
+    socket.emit('ferret', 'tobi', function (data) {
+      console.log(data); // data will be 'woot'
+    });
+  });
+</script>
+    </body>
+    
+    <footer></footer>
+
+</html>

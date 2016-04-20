@@ -15,10 +15,13 @@
         <ol id="tweets"></ol>
         <a href="#" id="submit">Get Tweets</a>
         <script>
-            $('#submit').click(function(){
-                $.post('/test');
+            var socket = io.connect('http://localhost:3000');
+           
+            socket.on('stream', function(tweet){
+                    $('#tweetd').append(tweet+'<br>');
             });
         </script>
+        <div id="tweetd"></div>
     </body>
     
     <footer></footer>
