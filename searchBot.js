@@ -25,21 +25,28 @@ app.get('/', function(req,res){
 io.on('connection', function(socket){
     console.log("Connected!");
     
+    // This is the Twitter stream that will be used to pull tweets
     var stream = T.stream('statuses/filter', { track: watchList });
-    
-    // Event Listener for #submit in index.html
-    socket.on('click',function(){
+
+    // See poster.
+    function streamT(){
+        
         console.log("Stream Start.")
         stream.start();
         
+        // This pulls the tweets
         stream.on('tweet',function(tweet){
-            // another event listener for this listener that sends data back to the client
             console.log(tweet.text);
+            
+            // This calls the 'stream' event in the front-end
             io.sockets.emit('stream',tweet.text);
         });
-        
-    });
+    }
     
+    // Event listener for #submit in index.html, starts the stream.
+    socket.on('click',streamT);
+    
+    // Event listener for #stop in index.html, stops the stream.
     socket.on('stopStream',function(){
             stream.stop();
             console.log("Stream Stop.");

@@ -10,7 +10,7 @@ var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create
 
 function preload() {
     
-    game.load.image('space', 'assets/skies/deep-space.jpg');
+    //game.load.image('space', 'assets/skies/deep-space.jpg');
     game.load.image('bullet', 'assets/games/asteroids/bullets.png');
     game.load.image('ship', 'Small_Square.jpg');
 
@@ -33,7 +33,7 @@ function create() {
     game.physics.startSystem(Phaser.Physics.ARCADE);
 
     //  A spacey background
-    game.add.tileSprite(0, 0, game.width, game.height, 'space');
+    //game.add.tileSprite(0, 0, game.width, game.height, 'space');
 
     //  Our ships bullets
     bullets = game.add.group();

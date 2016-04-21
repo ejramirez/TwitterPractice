@@ -19,25 +19,28 @@
         <a href="#" id="submit">Get Tweets</a>
         <a href="#" id="stop">Stop</a>
         <script>
-            //grab socket io connection
+            // grabs socket io connection
             var socket = io.connect('http://localhost:3000');
             
             // add a socket io event listener to #submit
             $('#submit').click(function(){
+                // Calls out to the 'click' event in the back-end
                 socket.emit('click');
             });
             
+            // add a socket io event listener to #submit
             $('#stop').click(function(){
+                // Calls out to the 'stopStream' event in the back-end
                 socket.emit('stopStream');
             });
             
-            
-            // socket event listener
+            // Event listener for the stream event in the back-end
             socket.on('stream', function(tweet){
                 setTweet(tweet);
-                //$('#tweetd').append(tweet+'<br>');
-                
+                setTimeout(socket.emit('stopStream'),300);
             });
+            
+            //$('#tweetd').append(tweet+'<br>');
         </script>
         <div id="tweetd"></div>
     </body>
